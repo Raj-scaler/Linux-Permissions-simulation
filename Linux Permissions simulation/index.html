@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Linux Permissions — Sandbox & Challenge</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Linux Permissions <span class="muted">· visual sandbox & challenge</span></h1>
+    <nav class="tabs">
+      <button class="tab active" data-mode="sandbox">Mode 1 · Sandbox</button>
+      <button class="tab" data-mode="challenge">Mode 2 · Challenge</button>
+      <button class="tab" data-mode="report">Weak Spots</button>
+      <a class="tab" href="../ACL Bouncer simulation/index.html" style="text-decoration:none;display:inline-flex;align-items:center;">ACL Bouncer →</a>
+    </nav>
+  </header>
+
+  <main id="app"></main>
+
+  <template id="tpl-vault">
+    <div class="vault">
+      <div class="file-card">
+        <div class="file-head">
+          <span class="file-name" data-bind="filename">vault.txt</span>
+          <span class="owner-group">
+            owner <b data-bind="owner">alice</b> · group <b data-bind="group">devteam</b>
+          </span>
+        </div>
+        <div class="perm-grid">
+          <div class="perm-col">
+            <div class="perm-label">user (owner)</div>
+            <div class="bits" data-scope="u">
+              <button class="bit" data-bit="r">r</button>
+              <button class="bit" data-bit="w">w</button>
+              <button class="bit" data-bit="x">x</button>
+            </div>
+          </div>
+          <div class="perm-col">
+            <div class="perm-label">group</div>
+            <div class="bits" data-scope="g">
+              <button class="bit" data-bit="r">r</button>
+              <button class="bit" data-bit="w">w</button>
+              <button class="bit" data-bit="x">x</button>
+            </div>
+          </div>
+          <div class="perm-col">
+            <div class="perm-label">others</div>
+            <div class="bits" data-scope="o">
+              <button class="bit" data-bit="r">r</button>
+              <button class="bit" data-bit="w">w</button>
+              <button class="bit" data-bit="x">x</button>
+            </div>
+          </div>
+        </div>
+        <div class="perm-display">
+          <code class="ls-line" data-bind="ls">-rwxr-xr--  1 alice devteam   42 Apr 13 vault.txt</code>
+          <code class="octal" data-bind="octal">754</code>
+        </div>
+      </div>
+
+      <div class="characters">
+        <div class="char" data-actor="alice">
+          <div class="avatar a">A</div>
+          <div class="char-name">Alice</div>
+          <div class="char-role">owner</div>
+          <div class="actions">
+            <button data-action="read">cat</button>
+            <button data-action="write">write</button>
+            <button data-action="exec">./run</button>
+          </div>
+          <div class="result"></div>
+        </div>
+        <div class="char" data-actor="bob">
+          <div class="avatar b">B</div>
+          <div class="char-name">Bob</div>
+          <div class="char-role">group: devteam</div>
+          <div class="actions">
+            <button data-action="read">cat</button>
+            <button data-action="write">write</button>
+            <button data-action="exec">./run</button>
+          </div>
+          <div class="result"></div>
+        </div>
+        <div class="char" data-actor="guest">
+          <div class="avatar g">G</div>
+          <div class="char-name">Guest</div>
+          <div class="char-role">others</div>
+          <div class="actions">
+            <button data-action="read">cat</button>
+            <button data-action="write">write</button>
+            <button data-action="exec">./run</button>
+          </div>
+          <div class="result"></div>
+        </div>
+        <div class="char" data-actor="www">
+          <div class="avatar w">W</div>
+          <div class="char-name">www-data</div>
+          <div class="char-role">service user</div>
+          <div class="actions">
+            <button data-action="read">cat</button>
+            <button data-action="write">write</button>
+            <button data-action="exec">./run</button>
+          </div>
+          <div class="result"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

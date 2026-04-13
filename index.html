@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Linux Visualisation · Lab</title>
+<link rel="stylesheet" href="Linux Permissions simulation/styles.css" />
+<style>
+  .hub { max-width: 960px; margin: 40px auto; padding: 24px; }
+  .hub h1 { font-size: 28px; margin: 0 0 6px; }
+  .hub .lede { color: var(--muted); font-size: 15px; margin: 0 0 32px; line-height: 1.6; max-width: 640px; }
+
+  .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 800px) { .sim-grid { grid-template-columns: 1fr; } }
+
+  .sim-card {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all .2s cubic-bezier(.4,0,.2,1);
+    position: relative; overflow: hidden;
+  }
+  .sim-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 28px rgba(124,196,255,.15);
+  }
+  .sim-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0; transition: opacity .2s;
+  }
+  .sim-card:hover::before { opacity: 1; }
+
+  .sim-icon {
+    font-size: 36px; margin-bottom: 12px;
+    display: inline-flex; width: 60px; height: 60px;
+    align-items: center; justify-content: center;
+    background: var(--panel-2); border-radius: 12px;
+  }
+  .sim-card h2 { font-size: 18px; margin: 0 0 6px; }
+  .sim-card .tagline { color: var(--muted); font-size: 13px; margin: 0 0 16px; line-height: 1.5; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .chip {
+    font-size: 11px; padding: 3px 10px; border-radius: 999px;
+    background: var(--panel-2); color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  .sim-modes { font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 12px; }
+  .sim-modes b { color: var(--ink); }
+
+  .launch { color: var(--accent); font-weight: 600; font-size: 13px; margin-top: 10px; display: inline-flex; align-items: center; gap: 4px; }
+  .launch::after { content: '→'; transition: transform .15s; }
+  .sim-card:hover .launch::after { transform: translateX(4px); }
+
+  .footer-note { margin-top: 32px; padding: 16px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+  .footer-note b { color: var(--ink); }
+</style>
+</head>
+<body>
+  <div class="hub">
+    <h1>Linux Visualisation Lab</h1>
+    <p class="lede">Two interactive simulators for teaching access control. Each has a free-play sandbox to build intuition and a scored challenge mode to test recall.</p>
+
+    <div class="sim-grid">
+      <a class="sim-card" href="Linux Permissions simulation/index.html">
+        <div class="sim-icon">🔐</div>
+        <h2>Linux Permissions</h2>
+        <p class="tagline">Toggle rwx bits and watch Alice, Bob, Guest, and www-data try to access the vault in real time.</p>
+        <div class="chips">
+          <span class="chip">chmod</span>
+          <span class="chip">octal</span>
+          <span class="chip">symbolic</span>
+          <span class="chip">ownership</span>
+          <span class="chip">SUID</span>
+        </div>
+        <div class="sim-modes">
+          <b>Sandbox</b> · free-play with live <code>chmod</code> log &nbsp;·&nbsp;
+          <b>Challenge</b> · 8 escalating levels &nbsp;·&nbsp;
+          <b>Weak Spots</b> · cohort report
+        </div>
+        <div class="launch">Launch simulator</div>
+      </a>
+
+      <a class="sim-card" href="ACL Bouncer simulation/index.html">
+        <div class="sim-icon">🕴️</div>
+        <h2>ACL Bouncer</h2>
+        <p class="tagline">A nightclub metaphor. Configure an ACL, send visitors to the door, and watch the bouncer walk through the 4-stage evaluation.</p>
+        <div class="chips">
+          <span class="chip">setfacl</span>
+          <span class="chip">getfacl</span>
+          <span class="chip">mask</span>
+          <span class="chip">named user/group</span>
+          <span class="chip">evaluation order</span>
+        </div>
+        <div class="sim-modes">
+          <b>Sandbox</b> · edit rules, play the animated check &nbsp;·&nbsp;
+          <b>Predict</b> · 7 rounds — ALLOW or DENY before the reveal
+        </div>
+        <div class="launch">Launch simulator</div>
+      </a>
+    </div>
+
+    <div class="footer-note">
+      <b>Suggested flow:</b> Run Linux Permissions first to anchor the owner/group/other mental model, then move to ACL Bouncer to show where classic permissions fall short (named users, mixed groups) and how ACLs + mask extend the system.
+    </div>
+  </div>
+</body>
+</html>
