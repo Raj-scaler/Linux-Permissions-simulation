@@ -20,7 +20,7 @@ cd "linux visualisation"
 python3 -m http.server 8765
 ```
 
-Then open **[Linux-Permissions-simulation](https://raj-scaler.github.io/Linux-Permissions-simulation/)** in a browser.
+Then open **[Linux-Permissions-simulation](https://scaler00.github.io/python-Simulation/)** in a browser.
 
 ### Option B — Node
 
